@@ -114,15 +114,12 @@ body{
   position:fixed;inset:0;z-index:10;
   width:100vw;height:100dvh;
   display:none;flex-direction:column;
-  align-items:stretch;overflow:hidden;
+  align-items:center;overflow:hidden;
   padding-top:var(--sat);padding-bottom:var(--sab);
 }
 .screen.on{display:flex}
 #sMenu{overflow-y:auto;-webkit-overflow-scrolling:touch}
 #sResult{justify-content:center;align-items:center;overflow-y:auto}
-/* Garante que conteúdo ocupe tela inteira em cada jogo */
-#sAlpha .alpha-body,#sMaze{flex:1;min-height:0}
-#sAlpha,#sMemory,#sMaze{height:100dvh}
 
 /* ═══════════════════════════════════════════════════════
    MENU PRINCIPAL
@@ -258,50 +255,9 @@ body{
 .alpha-body{
   display:flex;flex-direction:column;align-items:center;
   width:100%;flex:1;min-height:0;
-  padding:8px 12px 10px;gap:6px;overflow:hidden;
-  justify-content:center;
+  padding:8px 12px 10px;gap:7px;overflow:hidden;
 }
-/* Seção superior: progress + card + pergunta */
-.alpha-top{display:flex;flex-direction:column;gap:6px;width:100%;flex:1;min-height:0;justify-content:center}
-/* Seção inferior: opções + feedback + botão */
-.alpha-bot{display:flex;flex-direction:column;gap:6px;width:100%;flex-shrink:0}
-/* Trilha de progresso de letras já respondidas */
-.alpha-trail{
-  display:flex;flex-wrap:wrap;gap:4px;
-  justify-content:center;align-items:center;
-  width:100%;flex-shrink:0;
-  padding:6px 8px;
-  background:rgba(255,255,255,.05);
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:14px;
-  min-height:36px;
-}
-.trail-dot{
-  width:clamp(22px,6vw,30px);height:clamp(22px,6vw,30px);
-  border-radius:8px;display:flex;align-items:center;justify-content:center;
-  font-family:var(--fh);font-weight:700;font-size:clamp(.7rem,2.8vw,.88rem);
-  border:1.5px solid;
-  transition:all .3s cubic-bezier(.34,1.56,.64,1);
-}
-.trail-dot.ok  {background:rgba(0,255,136,.18);border-color:var(--mint);color:var(--mint)}
-.trail-dot.err {background:rgba(255,71,87,.18);border-color:var(--red);color:#ff9aaa}
-.trail-dot.cur {background:rgba(255,215,0,.22);border-color:var(--gold);color:var(--gold);animation:trailCur .8s ease-in-out infinite}
-.trail-dot.wait{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.12);color:rgba(255,255,255,.3)}
-@keyframes trailCur{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
 
-/* Fileira de estrelinhas decorativas abaixo do trail */
-.alpha-stars-row{
-  display:flex;justify-content:center;align-items:center;
-  gap:8px;padding:4px 0;flex-shrink:0;
-  min-height:28px;
-}
-.astar{
-  font-size:clamp(1rem,4.5vw,1.4rem);
-  animation:astarFloat var(--af,2s) ease-in-out infinite var(--ad,0s);
-  opacity:0.7;
-  filter:drop-shadow(0 0 6px rgba(255,215,0,.5));
-}
-@keyframes astarFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-5px) scale(1.15)}}
 /* Barra de progresso arco-íris */
 .pbar-wrap{width:100%;height:9px;background:rgba(255,255,255,.1);border-radius:10px;overflow:hidden;flex-shrink:0}
 .pbar-fill{
@@ -318,10 +274,9 @@ body{
   width:100%;background:var(--card);
   border:2px solid var(--border);border-radius:var(--r2);
   padding:12px 12px 10px;text-align:center;
-  flex:1;min-height:0;position:relative;overflow:hidden;
+  flex-shrink:0;position:relative;overflow:hidden;
   animation:aCardIn .5s cubic-bezier(.34,1.56,.64,1);
   box-shadow:var(--shadow);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
 }
 .acard::after{
   content:'';position:absolute;inset:0;pointer-events:none;
@@ -329,7 +284,7 @@ body{
 }
 @keyframes aCardIn{from{transform:scale(.75) translateY(40px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
 .aemoji{
-  font-size:clamp(4rem,20vw,8rem);line-height:1;display:block;margin-bottom:6px;
+  font-size:clamp(4rem,20vw,7rem);line-height:1;display:block;margin-bottom:4px;
   filter:drop-shadow(0 8px 20px rgba(0,0,0,.6));
   animation:emojiDance 2.6s ease-in-out infinite;
 }
@@ -406,8 +361,6 @@ body{
   display:flex;gap:6px;width:100%;height:38px;
   padding:0 10px;flex-shrink:0;align-items:center;
 }
-/* sMemory usa flex column, mgrid preenche o resto */
-#sMemory{display:flex;flex-direction:column;height:100dvh}
 .dbtn{
   flex:1;height:30px;background:rgba(255,255,255,.07);
   border:1.5px solid rgba(255,255,255,.12);border-radius:10px;
@@ -418,7 +371,7 @@ body{
 .dbtn.on{background:rgba(0,212,255,.15);border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 12px rgba(0,212,255,.25)}
 .dbtn:active{transform:scale(.92)}
 
-.mgrid{display:grid;flex-shrink:0;flex:1;min-height:0;align-content:center;align-items:center;justify-content:center;overflow:hidden}
+.mgrid{display:grid;flex-shrink:0}
 
 /* Memória card */
 .mc{position:relative;cursor:pointer;touch-action:manipulation;flex-shrink:0}
@@ -493,7 +446,7 @@ body{
    LABIRINTO MÁGICO
 ═══════════════════════════════════════════════════════ */
 #sMaze .game-body{
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  display:flex;flex-direction:column;align-items:center;
   width:100%;flex:1;min-height:0;
   padding:5px 8px 5px;gap:5px;overflow:hidden;
 }
@@ -750,21 +703,16 @@ body{
     <button class="hbtn" onclick="initAlpha()">🔄</button>
   </div>
   <div class="alpha-body">
-    <div class="alpha-top">
-      <div class="pbar-wrap"><div class="pbar-fill" id="aProgress" style="width:0%"></div></div>
-      <div class="acard" id="aCard">
-        <span class="aemoji" id="aEmoji">🦁</span>
-        <div class="aword"  id="aWord">LEÃO</div>
-        <div class="ahint"  id="aHint">Começa com que letrinha? 🤔</div>
-      </div>
-      <div class="aquestion">Qual é a primeira letrinha? 👇</div>
+    <div class="pbar-wrap"><div class="pbar-fill" id="aProgress" style="width:0%"></div></div>
+    <div class="acard" id="aCard">
+      <span class="aemoji" id="aEmoji">🦁</span>
+      <div class="aword"  id="aWord">LEÃO</div>
+      <div class="ahint"  id="aHint">Começa com que letrinha? 🤔</div>
     </div>
-    <div class="alpha-bot">
-      <div class="aopts" id="aOpts"></div>
-      <div class="afb hidden" id="aFb"></div>
-      <button class="btn-next hidden" id="btnNext">Próxima ➜</button>
-      <div class="alpha-trail" id="aTrail"></div>
-    </div>
+    <div class="aquestion">Qual é a primeira letrinha? 👇</div>
+    <div class="aopts" id="aOpts"></div>
+    <div class="afb hidden" id="aFb"></div>
+    <button class="btn-next hidden" id="btnNext">Próxima ➜</button>
   </div>
 </div>
 
@@ -780,9 +728,9 @@ body{
     <button class="hbtn" onclick="initMemory()">🔄</button>
   </div>
   <div class="diffbar" id="diffbar">
-    <button class="dbtn on" onclick="setDiff('easy',this)">😊 Fácil</button>
-    <button class="dbtn"   onclick="setDiff('med',this)">😎 Médio</button>
-    <button class="dbtn"   onclick="setDiff('hard',this)">🔥 Difícil</button>
+    <button class="dbtn on" onclick="setDiff(6,this)">😊 Fácil</button>
+    <button class="dbtn"   onclick="setDiff(8,this)">😎 Médio</button>
+    <button class="dbtn"   onclick="setDiff(12,this)">🔥 Difícil</button>
   </div>
   <div class="mgrid" id="mgrid"></div>
 </div>
@@ -969,44 +917,14 @@ function showResult(game,sn,coins,trophy,title,msg){
 /* ═══════════════════════════════════════════════════════
    JOGO DO ALFABETO
 ═══════════════════════════════════════════════════════ */
-let _aq=[],_ai=0,_as=0,_al=3,_aok=false,_aResults=[];
-
-// Preenche a fileira de estrelinhas decorativas abaixo do trail (alfabeto)
-function fillAlphaStars(){
-  const row=$('alphaStarsRow');
-  if(!row)return;
-  const emojis=['🌟','✨','⭐','💫','🌙','🔮','🎯','🦋','🌈'];
-  const n=Math.min(9,Math.floor((window.innerWidth-32)/36));
-  row.innerHTML='';
-  for(let i=0;i<n;i++){
-    const s=document.createElement('span');
-    s.className='astar';
-    s.textContent=emojis[i%emojis.length];
-    s.style.cssText=`--af:${1.5+Math.random()}s;--ad:-${(Math.random()*1.2).toFixed(2)}s`;
-    row.appendChild(s);
-  }
-}
+let _aq=[],_ai=0,_as=0,_al=3,_aok=false;
 
 function initAlpha(){
-  _aq=shuffle(ALPHA).slice(0,10);_ai=0;_as=0;_al=3;_aok=false;_aResults=[];
+  _aq=shuffle(ALPHA).slice(0,10);_ai=0;_as=0;_al=3;_aok=false;
   $('aFb').classList.add('hidden');$('btnNext').classList.add('hidden');
-  fillAlphaStars();
   loadAQ();
 }
 
-function updateTrail(){
-  const t=$('aTrail');if(!t)return;
-  t.innerHTML='';
-  _aq.forEach((q,i)=>{
-    const d=document.createElement('div');
-    let cls='wait';
-    if(i<_ai)cls=_aResults[i]===1?'ok':'err';
-    else if(i===_ai)cls='cur';
-    d.className='trail-dot '+cls;
-    d.textContent=q.l;
-    t.appendChild(d);
-  });
-}
 function loadAQ(){
   _aok=false;
   const q=_aq[_ai];
@@ -1019,7 +937,6 @@ function loadAQ(){
   $('aScore').textContent=_as;
   $('aLives').textContent=_al>0?'❤️'.repeat(_al):'💔';
   $('aProgress').style.width=(_ai/_aq.length*100)+'%';
-  updateTrail();
   const wrong=shuffle(ALPHA.map(d=>d.l).filter(l=>l!==q.l)).slice(0,3);
   const opts=shuffle([q.l,...wrong]);
   const c=$('aOpts');c.innerHTML='';
@@ -1039,11 +956,11 @@ function checkA(btn,chosen,correct){
   document.querySelectorAll('.obtn').forEach(b=>b.disabled=true);
   const fb=$('aFb');
   if(chosen===correct){
-    btn.classList.add('hit');_as+=10;rain(18);_aResults[_ai]=1;
+    btn.classList.add('hit');_as+=10;rain(18);
     fb.textContent='🎉 Isso mesmo! Que esperto(a)! ✨';
     fb.className='afb ok';
   }else{
-    btn.classList.add('miss');_al=Math.max(0,_al-1);_aResults[_ai]=0;
+    btn.classList.add('miss');_al=Math.max(0,_al-1);
     document.querySelectorAll('.obtn').forEach(b=>{if(b.textContent===correct)b.classList.add('hit')});
     fb.textContent=`😅 Quase! Era a letra "${correct}"! Você vai conseguir! 💪`;
     fb.className='afb err';
@@ -1078,20 +995,10 @@ $('btnNext').addEventListener('click',()=>{
 /* ═══════════════════════════════════════════════════════
    JOGO DA MEMÓRIA
 ═══════════════════════════════════════════════════════ */
-// Configurações de dificuldade: {pairs, cols, rows}
-// Dimensões exatas pedidas: fácil=3×5≈3×4(par), médio=4×6, difícil=5×8
-const DIFF_CFG={
-  easy: {pairs:7,  cols:3, rows:5},  // 3×5=15 cells, 7 pares=14 cards +1 espaço
-  med:  {pairs:12, cols:4, rows:6},  // 4×6=24 cards, 12 pares ✓
-  hard: {pairs:20, cols:5, rows:8},  // 5×8=40 cards, 20 pares ✓
-};
-let _mDiff='easy',_mp=6,_mCols=3,_mRows=4;
-let _mm=0,_mMat=0,_mFl=[],_mLk=false,_mT=0,_mTim=null;
+let _mp=6,_mm=0,_mMat=0,_mFl=[],_mLk=false,_mT=0,_mTim=null;
 
-function setDiff(d,btn){
-  _mDiff=d;
-  const cfg=DIFF_CFG[d];
-  _mp=cfg.pairs;_mCols=cfg.cols;_mRows=cfg.rows;
+function setDiff(n,btn){
+  _mp=n;
   document.querySelectorAll('.dbtn').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');initMemory();
 }
@@ -1103,41 +1010,19 @@ function initMemory(){
   const g=$('mgrid');g.innerHTML='';g.removeAttribute('style');
 
   requestAnimationFrame(()=>{
-    const cols=_mCols, rows=_mRows;
-    const GAP=5, PAD=8;
+    const cols=_mp<=6?3:4;
+    const rows=Math.ceil(_mp*2/cols);
+    const GAP=7,PAD=10;
     const hH=$('hdrM').offsetHeight||52;
-    const dH=$('diffbar').offsetHeight||40;
-    const availH=window.innerHeight-hH-dH-PAD*2-GAP*(rows-1)-4;
-    const availW=window.innerWidth-PAD*2-GAP*(cols-1);
-    const cellByH=Math.floor(availH/rows);
-    const cellByW=Math.floor(availW/cols);
-    const cell=Math.max(44,Math.min(cellByH,cellByW,110));
-    const usedW=cols*cell+GAP*(cols-1);
-    const usedH=rows*cell+GAP*(rows-1);
-    const px=Math.max(PAD,Math.floor((window.innerWidth-usedW)/2));
-    // Centraliza verticalmente no espaço restante
-    const remainH=window.innerHeight-hH-dH;
-    const py=Math.max(PAD,Math.floor((remainH-usedH)/2));
+    const dH=$('diffbar').offsetHeight||38;
+    const aH=window.innerHeight-hH-dH-PAD-GAP*(rows-1);
+    const aW=window.innerWidth-PAD*2-GAP*(cols-1);
+    const cell=Math.max(44,Math.min(Math.floor(aH/rows),Math.floor(aW/cols)));
 
-    g.style.cssText=`
-      display:grid;
-      grid-template-columns:repeat(${cols},${cell}px);
-      grid-template-rows:repeat(${rows},${cell}px);
-      gap:${GAP}px;
-      padding:${py}px ${px}px;
-      justify-content:center;
-      align-content:center;
-      width:100%;
-      flex:1;
-      min-height:0;
-      box-sizing:border-box;
-    `.replace(/\s+/g,' ');
+    g.style.cssText=`display:grid;grid-template-columns:repeat(${cols},${cell}px);grid-template-rows:repeat(${rows},${cell}px);gap:${GAP}px;padding:0 ${PAD}px ${PAD}px;justify-content:center;align-content:start`;
 
     const sel=shuffle(MCARDS).slice(0,_mp);
     const pairs=shuffle([...sel,...sel.map(c=>({...c}))]);
-    const totalCells=cols*rows;
-    // Para fácil (15 células, 14 cards) adiciona placeholder
-    const placeholders=totalCells-pairs.length;
     pairs.forEach(cd=>{
       const card=document.createElement('div');
       card.className='mc';card.style.cssText=`width:${cell}px;height:${cell}px`;
@@ -1153,12 +1038,6 @@ function initMemory(){
       card.addEventListener('click',()=>flipCard(card));
       g.appendChild(card);
     });
-    // Placeholders invisíveis para completar o grid
-    for(let i=0;i<placeholders;i++){
-      const ph=document.createElement('div');
-      ph.style.cssText=`width:${cell}px;height:${cell}px;opacity:0;pointer-events:none`;
-      g.appendChild(ph);
-    }
 
     _mTim=setInterval(()=>{_mT++;$('mTimer').textContent=_mT},1000);
   });
@@ -1263,8 +1142,6 @@ function hideFace(card){const f=card.querySelector('.mcface');if(f)f.className='
 // ── Estado do labirinto ──
 let _mzLv=0, _mzGrid=[], _mzSize=13;
 let _px=1, _py=1, _ex=1, _ey=1;
-let _exitDoor={x:0,y:0}; // posição da porta de saída na borda
-let _exitDoorInner={x:0,y:0}; // célula interna adjacente à porta
 let _mzSteps=0, _mzFinished=false, _mzDead=false;
 // Boss
 let _bx=1, _by=1, _bossInterval=null, _bossOn=false;
@@ -1336,13 +1213,7 @@ function genMaze(sz){
   }
   carve(1,1);
   _px=1; _py=1;
-  // Saída: abre a borda direita na última linha navegável
-  _ex=s-2; _ey=s-2;
-  _mzGrid[_ey][_ex]=0;
-  // Abre a parede da borda direita (s-1) para criar a porta de saída
-  _mzGrid[_ey][s-1]=0;
-  _exitDoor={x:s-1, y:_ey};     // posição da porta (borda direita)
-  _exitDoorInner={x:s-2,y:_ey}; // célula interna adjacente
+  _ex=s-2; _ey=s-2; _mzGrid[_ey][_ex]=0;
   _mzSize=s;
 }
 
@@ -1451,7 +1322,6 @@ function drawMaze(){
   const cell=Math.max(12, Math.floor(maxSz/s));
   const total=cell*s;
 
-  const totalH_canvas=total;
   cv.width=total*dpr; cv.height=total*dpr;
   cv.style.width=total+'px'; cv.style.height=total+'px';
   wrap.style.width=total+'px'; wrap.style.height=total+'px';
@@ -1461,7 +1331,7 @@ function drawMaze(){
 
   // ── Fundo geral ──
   ctx.fillStyle='#071008';
-  ctx.fillRect(0,0,total,totalH_canvas);
+  ctx.fillRect(0,0,total,total);
 
   // ── Células ──
   for(let y=0;y<s;y++){
@@ -1579,68 +1449,17 @@ function drawMaze(){
     });
   }
 
-  // ── Saída — porta de floresta com arco e estrela ──
+  // ── Saída — estrela pulsante ──
   const tp=Date.now();
-  const pulse=0.88+0.12*Math.sin(tp/350);
-  const glow=0.5+0.5*Math.abs(Math.sin(tp/600));
+  const pulse=.85+.15*Math.sin(tp/380);
   ctx.save();
-
-  // Porta na última coluna (borda direita)
-  const pdx=_exitDoor.x*cell, pdy=_exitDoor.y*cell;
-  const pcx=pdx+cell/2, pcy=pdy+cell/2;
-
-  // Fundo da porta (chão iluminado)
-  const gPorta=ctx.createLinearGradient(pdx,pdy,pdx+cell,pdy+cell);
-  gPorta.addColorStop(0,'#2a1a04'); gPorta.addColorStop(1,'#1a0e02');
-  ctx.fillStyle=gPorta; ctx.fillRect(pdx,pdy,cell,cell);
-
-  // Halo dourado pulsante ao redor da porta
-  const gHalo=ctx.createRadialGradient(pcx,pcy,0,pcx,pcy,cell*1.1*pulse);
-  gHalo.addColorStop(0,`rgba(255,240,80,${0.55*glow})`);
-  gHalo.addColorStop(.5,`rgba(255,200,0,${0.18*glow})`);
-  gHalo.addColorStop(1,'transparent');
-  ctx.fillStyle=gHalo;
-  ctx.beginPath(); ctx.arc(pcx,pcy,cell*1.1,0,Math.PI*2); ctx.fill();
-
-  // Arco da porta (abertura da floresta) — forma de arco no topo da célula
-  const arcW=cell*.75, arcH=cell*.55;
-  const ax=pdx+cell/2, ay=pdy+cell*.55;
-  ctx.fillStyle=`hsl(28,70%,${14+8*glow}%)`;
-  ctx.beginPath();
-  // Arco: elipse superior + corpo retangular
-  ctx.ellipse(ax, ay, arcW/2, arcH/2, 0, Math.PI, 0);
-  ctx.lineTo(ax+arcW/2, pdy+cell*.95);
-  ctx.lineTo(ax-arcW/2, pdy+cell*.95);
-  ctx.closePath(); ctx.fill();
-
-  // Moldura da porta — contorno dourado
-  ctx.strokeStyle=`rgba(255,215,0,${0.7+0.3*glow})`;
-  ctx.lineWidth=Math.max(1.5, cell*.06);
-  ctx.beginPath();
-  ctx.ellipse(ax, ay, arcW/2, arcH/2, 0, Math.PI, 0);
-  ctx.lineTo(ax+arcW/2, pdy+cell*.95);
-  ctx.moveTo(ax-arcW/2, pdy+cell*.95);
-  ctx.lineTo(ax-arcW/2, ay);
-  ctx.stroke();
-
-  // Linha da soleira
-  ctx.strokeStyle=`rgba(255,200,50,${0.8*glow})`;
-  ctx.lineWidth=Math.max(1,cell*.04);
-  ctx.beginPath();
-  ctx.moveTo(ax-arcW/2,pdy+cell*.95); ctx.lineTo(ax+arcW/2,pdy+cell*.95);
-  ctx.stroke();
-
-  // Estrela brilhante dentro da porta
-  ctx.font=`${Math.round(cell*.68)}px serif`;
+  const ge=ctx.createRadialGradient(_ex*cell+cell/2,_ey*cell+cell/2,0,_ex*cell+cell/2,_ey*cell+cell/2,cell*.65*pulse);
+  ge.addColorStop(0,'rgba(255,240,0,.55)'); ge.addColorStop(.65,'rgba(255,200,0,.12)'); ge.addColorStop(1,'transparent');
+  ctx.fillStyle=ge;
+  ctx.beginPath(); ctx.arc(_ex*cell+cell/2,_ey*cell+cell/2,cell*.65,0,Math.PI*2); ctx.fill();
+  ctx.font=`${Math.round(cell*.75)}px serif`;
   ctx.textAlign='center'; ctx.textBaseline='middle';
-  ctx.fillText('🌟', pcx, pdy+cell*.38);
-
-  // Seta pulsante na célula interna apontando para a saída
-  ctx.globalAlpha=0.5+0.5*Math.abs(Math.sin(tp/300));
-  ctx.fillStyle='#ffd700';
-  ctx.font=`bold ${Math.round(cell*.48)}px sans-serif`;
-  ctx.fillText('→', _ex*cell+cell/2, _ey*cell+cell/2);
-
+  ctx.fillText('🌟',_ex*cell+cell/2, _ey*cell+cell/2);
   ctx.restore();
 
   // ── Boss 👾 ──
@@ -1673,42 +1492,13 @@ function drawMaze(){
 
   // Borda de floresta
   ctx.strokeStyle='rgba(0,140,0,.4)'; ctx.lineWidth=2;
-  ctx.strokeRect(1,1,total-2,totalH_canvas-2);
+  ctx.strokeRect(1,1,total-2,total-2);
 }
 
 // ── Movimento do jogador ──
 function mv(dx,dy){
   if(_mzFinished||_mzDead) return;
   const nx=_px+dx, ny=_py+dy;
-  // Permite sair pela porta da borda (além do limite do grid = vitória imediata)
-  if(nx===_exitDoor.x&&ny===_exitDoor.y){
-    _px=nx; _py=ny; _mzSteps++;
-    $('mzSteps').textContent=_mzSteps;
-    _hintActive=false;
-    if(_bossOn&&_bx===_px&&_by===_py){ bossCatch(); return; }
-    updateDanger(); drawMaze();
-    // Chegou na saída interna OU na porta da borda!
-    if((_px===_ex&&_py===_ey)||(_px===_exitDoor.x&&_py===_exitDoor.y)){
-      _mzFinished=true; _bossOn=false;
-      clearInterval(_bossInterval);
-      $('mazeTopbar').classList.remove('danger');
-      $('mzwrap').classList.remove('danger-border');
-      rain(50);
-      setTimeout(()=>{
-        const lv=MAZE_LEVELS[_mzLv];
-        const sn=_mzSteps<=lv.max*.5?3:_mzSteps<=lv.max?2:1;
-        saveStars('mw_z',sn);
-        _mzLv=(_mzLv+1)%MAZE_LEVELS.length;
-        const coins=sn===3?35:sn===2?22:10;
-        showResult('z',sn,coins,
-          sn===3?'🏆':sn===2?'🥈':'🥉',
-          sn===3?'Escapou perfeitamente! 🌟':sn===2?'Fugiu do monstro! 🎉':'Conseguiu escapar! 🐱',
-          `Fugiu em ${_mzSteps} passos!${sn===3?' Incrível!':''}`
-        );
-      }, 700);
-    }
-    return;
-  }
   if(ny<0||ny>=_mzSize||nx<0||nx>=_mzSize) return;
   if(_mzGrid[ny][nx]===1){ shakeWrap(); return; }
   _px=nx; _py=ny; _mzSteps++;
@@ -1718,8 +1508,8 @@ function mv(dx,dy){
   if(_bossOn&&_bx===_px&&_by===_py){ bossCatch(); return; }
   updateDanger();
   drawMaze();
-  // Chegou na saída interna OU na porta da borda!
-  if((_px===_ex&&_py===_ey)||(_px===_exitDoor.x&&_py===_exitDoor.y)){
+  // Chegou na saída!
+  if(_px===_ex&&_py===_ey){
     _mzFinished=true; _bossOn=false;
     clearInterval(_bossInterval);
     $('mazeTopbar').classList.remove('danger');
