@@ -448,76 +448,93 @@ body{
 #sMaze .game-body{
   display:flex;flex-direction:column;align-items:center;
   width:100%;flex:1;min-height:0;
-  padding:7px 10px 8px;gap:7px;overflow:hidden;
+  padding:5px 8px 5px;gap:5px;overflow:hidden;
 }
 .maze-topbar{
   display:flex;align-items:center;justify-content:space-between;
   width:100%;flex-shrink:0;
-  background:rgba(255,255,255,.06);border-radius:14px;padding:7px 12px;
+  background:rgba(0,30,0,.5);border:1px solid rgba(0,180,0,.2);
+  border-radius:12px;padding:5px 10px;gap:6px;
 }
-.maze-lvlname{font-family:var(--fh);font-size:clamp(.88rem,3.5vw,1.05rem);color:var(--cyan)}
+.maze-lvlname{
+  font-family:var(--fh);font-size:clamp(.78rem,3vw,.95rem);
+  color:#7dff7d;text-shadow:0 0 8px rgba(80,255,80,.6);
+}
+.maze-topbar.danger{animation:dangerPulse .35s ease-in-out infinite}
+@keyframes dangerPulse{
+  0%,100%{background:rgba(0,30,0,.5);border-color:rgba(0,180,0,.2)}
+  50%{background:rgba(160,0,0,.5);border-color:rgba(255,50,50,.6)}
+}
 .hint-btn{
-  display:flex;align-items:center;gap:6px;
-  background:rgba(255,215,0,.18);border:1.5px solid rgba(255,215,0,.4);
-  border-radius:12px;padding:5px 12px;
+  display:flex;align-items:center;gap:5px;flex-shrink:0;
+  background:rgba(255,215,0,.15);border:1.5px solid rgba(255,215,0,.35);
+  border-radius:10px;padding:4px 10px;
   font-family:var(--fh);font-weight:700;
-  font-size:clamp(.75rem,3vw,.9rem);color:var(--gold);
+  font-size:clamp(.68rem,2.8vw,.82rem);color:var(--gold);
   cursor:pointer;touch-action:manipulation;
   transition:transform .12s,background .15s;
 }
-.hint-btn:active{transform:scale(.91);background:rgba(255,215,0,.3)}
-.hint-dots{display:flex;gap:4px;align-items:center}
-.hdot{width:8px;height:8px;border-radius:50%;background:var(--gold);transition:background .3s,transform .3s}
-.hdot.used{background:rgba(255,255,255,.2);transform:scale(.7)}
-
-/* Canvas wrapper com sombra mágica */
+.hint-btn:active{transform:scale(.9)}
+.hint-dots{display:flex;gap:3px;align-items:center}
+.hdot{width:7px;height:7px;border-radius:50%;background:var(--gold);transition:all .3s}
+.hdot.used{background:rgba(255,255,255,.18);transform:scale(.65)}
+/* Canvas wrapper */
 .maze-wrap{
   position:relative;flex-shrink:0;
-  border-radius:20px;overflow:hidden;
-  box-shadow:0 0 0 2px rgba(0,212,255,.3),0 0 40px rgba(0,212,255,.15),var(--shadow);
-  animation:mazeGlow 4s ease-in-out infinite;
+  border-radius:14px;overflow:hidden;
+  box-shadow:0 0 0 3px rgba(0,160,0,.5),0 0 0 6px rgba(0,80,0,.25),0 0 30px rgba(0,200,0,.1),var(--shadow);
+  animation:forestGlow 3s ease-in-out infinite;
 }
-@keyframes mazeGlow{0%,100%{box-shadow:0 0 0 2px rgba(0,212,255,.3),0 0 40px rgba(0,212,255,.15),var(--shadow)}50%{box-shadow:0 0 0 2px rgba(199,125,255,.4),0 0 60px rgba(199,125,255,.2),var(--shadow)}}
+.maze-wrap.danger-border{animation:dangerBorder .3s ease-in-out infinite!important}
+@keyframes forestGlow{
+  0%,100%{box-shadow:0 0 0 3px rgba(0,160,0,.5),0 0 0 6px rgba(0,80,0,.25),0 0 30px rgba(0,200,0,.1),var(--shadow)}
+  50%{box-shadow:0 0 0 3px rgba(80,255,80,.6),0 0 0 8px rgba(0,140,0,.3),0 0 50px rgba(0,220,0,.2),var(--shadow)}
+}
+@keyframes dangerBorder{
+  0%,100%{box-shadow:0 0 0 3px rgba(255,40,40,.8),0 0 0 8px rgba(180,0,0,.45),0 0 50px rgba(255,0,0,.35),var(--shadow)}
+  50%{box-shadow:0 0 0 3px rgba(255,160,0,.9),0 0 0 10px rgba(200,60,0,.5),0 0 70px rgba(255,100,0,.45),var(--shadow)}
+}
 #mc{display:block}
-
-/* Controles do labirinto — grande para dedos pequenos */
+/* D-pad compacto e verde */
 .maze-pad{
   display:grid;
-  grid-template:
-    ". up ."
-    "lf cn rt"
-    / 1fr 1fr 1fr;
-  gap:8px;
-  width:min(220px,60vw);flex-shrink:0;
+  grid-template:"_ up _" "lf cn rt" / 1fr 1fr 1fr;
+  gap:6px;width:min(195px,55vw);flex-shrink:0;
 }
 .dpad{
-  background:rgba(255,255,255,.1);
-  border:2px solid rgba(255,255,255,.18);
-  border-radius:14px;font-size:clamp(1.4rem,6vw,2rem);
+  background:rgba(0,50,0,.7);border:2px solid rgba(0,200,0,.35);
+  border-radius:12px;font-size:clamp(1.3rem,5.5vw,1.8rem);
   cursor:pointer;touch-action:manipulation;
   aspect-ratio:1;display:flex;align-items:center;justify-content:center;
-  transition:transform .1s,background .1s;
-  box-shadow:0 4px 12px rgba(0,0,0,.3);
+  transition:transform .1s,background .12s;
+  box-shadow:0 3px 10px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.06);
 }
-.dpad:active{transform:scale(.86);background:rgba(255,255,255,.22)}
-#dUp  {grid-area:up}
-#dLf  {grid-area:lf}
-#dCn  {grid-area:cn;background:rgba(255,255,255,.05);cursor:default;font-size:clamp(.7rem,3vw,1rem);color:rgba(255,255,255,.4)}
-#dRt  {grid-area:rt}
-
-/* Toast de vitória no labirinto */
-.maze-toast{
-  position:absolute;top:50%;left:50%;
-  transform:translate(-50%,-50%);
-  background:rgba(5,15,35,.88);backdrop-filter:blur(12px);
-  border:2px solid rgba(255,255,255,.2);
-  border-radius:22px;padding:18px 26px;
-  text-align:center;z-index:20;pointer-events:none;
-  animation:toastIn .5s cubic-bezier(.34,1.56,.64,1);
+.dpad:active{transform:scale(.83);background:rgba(0,110,0,.6)}
+#dUp{grid-area:up} #dLf{grid-area:lf} #dRt{grid-area:rt}
+#dCn{grid-area:cn;background:rgba(0,30,0,.4);pointer-events:none;cursor:default;
+     font-size:clamp(.65rem,2.8vw,.9rem);border-color:rgba(0,100,0,.15)}
+/* Overlay game-over / vitória dentro do canvas */
+.mz-overlay{
+  position:absolute;inset:0;z-index:30;border-radius:14px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:9px;text-align:center;padding:16px;
+  animation:ovIn .4s cubic-bezier(.34,1.4,.64,1);
 }
-@keyframes toastIn{from{transform:translate(-50%,-50%) scale(.6);opacity:0}to{transform:translate(-50%,-50%) scale(1);opacity:1}}
-.toast-big{font-size:2.8rem;display:block;margin-bottom:6px}
-.toast-txt{font-family:var(--fh);font-size:1.15rem;color:var(--gold)}
+.mz-overlay.lost{background:rgba(90,0,0,.85);backdrop-filter:blur(5px)}
+.mz-overlay.won {background:rgba(0,70,0,.85);backdrop-filter:blur(5px)}
+@keyframes ovIn{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
+.ov-ico{font-size:clamp(2.4rem,11vw,3.8rem);animation:ovBnc .55s cubic-bezier(.34,1.56,.64,1)}
+@keyframes ovBnc{from{transform:scale(0) rotate(-20deg)}to{transform:scale(1) rotate(0)}}
+.ov-ttl{font-family:var(--fh);font-size:clamp(1.15rem,5vw,1.7rem);color:#fff}
+.ov-sub{font-size:clamp(.72rem,2.8vw,.88rem);color:rgba(255,255,255,.7)}
+.ov-btn{
+  background:rgba(255,255,255,.2);border:1.5px solid rgba(255,255,255,.4);
+  border-radius:12px;padding:7px 18px;font-family:var(--fh);
+  font-size:clamp(.82rem,3.3vw,.98rem);color:#fff;
+  cursor:pointer;touch-action:manipulation;
+  transition:background .15s,transform .1s;margin-top:2px;
+}
+.ov-btn:active{transform:scale(.91)}
 
 /* ═══════════════════════════════════════════════════════
    ANIMAÇÕES ANIMAIS
@@ -723,17 +740,18 @@ body{
   <div class="hdr">
     <button class="hbtn" onclick="goHome()">🏠</button>
     <div class="hud">
-      <div class="pill">🏆 Nível <strong id="mzLvl">1</strong></div>
+      <div class="pill">🌿 Nível <strong id="mzLvl">1</strong></div>
       <div class="pill">👣 <strong id="mzSteps">0</strong></div>
+      <div class="pill" id="bpill" style="color:#ff7070">👾 <strong id="bossDist">?</strong></div>
     </div>
     <button class="hbtn" onclick="initMaze(true)">🔄</button>
   </div>
   <div class="game-body" id="mazebody">
-    <div class="maze-topbar">
-      <span class="maze-lvlname" id="mzName">🌿 Floresta Fácil</span>
+    <div class="maze-topbar" id="mazeTopbar">
+      <span class="maze-lvlname" id="mzName">🌿 Floresta</span>
       <button class="hint-btn" id="hintBtn" onclick="useHint()">
-        💡 Dica!
-        <div class="hint-dots" id="hintDots">
+        💡 Dica
+        <div class="hint-dots">
           <div class="hdot" id="hd0"></div>
           <div class="hdot" id="hd1"></div>
           <div class="hdot" id="hd2"></div>
@@ -742,10 +760,10 @@ body{
     </div>
     <div class="maze-wrap" id="mzwrap"><canvas id="mc"></canvas></div>
     <div class="maze-pad">
-      <button class="dpad" id="dUp"   onclick="mv(0,-1)">⬆️</button>
-      <button class="dpad" id="dLf"   onclick="mv(-1,0)">⬅️</button>
+      <button class="dpad" id="dUp" onclick="mv(0,-1)">⬆️</button>
+      <button class="dpad" id="dLf" onclick="mv(-1,0)">⬅️</button>
       <div    class="dpad" id="dCn">🐾</div>
-      <button class="dpad" id="dRt"   onclick="mv(1,0)">➡️</button>
+      <button class="dpad" id="dRt" onclick="mv(1,0)">➡️</button>
     </div>
   </div>
 </div>
@@ -801,9 +819,9 @@ const ALLANIMS=['a-roar','a-bark','a-scratch','a-gallop','a-jump','a-shake','a-s
   'a-bounce','a-fly','a-spin','a-flap','a-stomp','a-stretch','a-snap','a-waddle',
   'a-fish','a-butterfly','a-match'];
 const MAZE_LEVELS=[
-  {name:'🌿 Floresta Fácil',   s:7,  max:30, emoji:'🌿'},
-  {name:'🏖️ Praia Divertida', s:9,  max:50, emoji:'🏖️'},
-  {name:'🏔️ Montanha Aventura',s:11, max:75, emoji:'🏔️'},
+  {name:'🌿 Floresta Pequena', s:13, max:80,  bossMs:1100},
+  {name:'🌲 Floresta Média',   s:17, max:130, bossMs:820 },
+  {name:'🌳 Floresta Grande',  s:21, max:200, bossMs:620 },
 ];
 
 /* ═══════════════════════════════════════════════════════
@@ -1118,234 +1136,410 @@ function setFace(card,t){
 function hideFace(card){const f=card.querySelector('.mcface');if(f)f.className='mcface hidden'}
 
 /* ═══════════════════════════════════════════════════════
-   LABIRINTO
+   LABIRINTO — Floresta com Boss
 ═══════════════════════════════════════════════════════ */
-let _mzLv=0,_mzGrid=[],_mzSize=7,_px=1,_py=1,_ex=1,_ey=1,_mzSteps=0;
-let _hints=[],_hintIdx=0,_hintUsed=0,_hintMax=3,_hintActive=false;
-let _mzAnimate=null,_mzFinished=false;
 
-function initMaze(reset=false){
+// ── Estado do labirinto ──
+let _mzLv=0, _mzGrid=[], _mzSize=13;
+let _px=1, _py=1, _ex=1, _ey=1;
+let _mzSteps=0, _mzFinished=false, _mzDead=false;
+// Boss
+let _bx=1, _by=1, _bossInterval=null, _bossOn=false;
+// Dica
+let _hints=[], _hintUsed=0, _hintMax=3, _hintActive=false;
+// Seeds para folhas (geradas uma vez por labirinto)
+let _leafSeeds=[];
+
+// ── Inicia / reinicia labirinto ──
+function initMaze(reset){
   if(reset)_mzLv=0;
-  _mzSteps=0;_hintUsed=0;_hintIdx=0;_hints=[];_hintActive=false;_mzFinished=false;
-  $('mzLvl').textContent=_mzLv+1;
+  clearInterval(_bossInterval); _bossOn=false;
+  _mzSteps=0; _hintUsed=0; _hints=[]; _hintActive=false;
+  _mzFinished=false; _mzDead=false;
   $('mzSteps').textContent=0;
+  $('mzLvl').textContent=_mzLv+1;
   const lv=MAZE_LEVELS[_mzLv];
   $('mzName').textContent=lv.name;
   _mzSize=lv.s;
-  // reset hint dots
-  for(let i=0;i<3;i++){$('hd'+i).classList.remove('used')}
+  for(let i=0;i<3;i++) $('hd'+i).classList.remove('used');
   $('hintBtn').style.opacity='1';
   $('hintBtn').style.pointerEvents='auto';
+  $('mazeTopbar').classList.remove('danger');
+  $('mzwrap').classList.remove('danger-border');
+  // Remove overlay antigo
+  const old=$('mzwrap').querySelector('.mz-overlay');
+  if(old) old.remove();
+  // Gera o labirinto
   genMaze(_mzSize);
-  requestAnimationFrame(()=>{drawMaze()});
+  // Gera seeds de folhas aleatórias (uma vez)
+  _leafSeeds=[];
+  for(let y=0;y<_mzSize;y++){
+    _leafSeeds[y]=[];
+    for(let x=0;x<_mzSize;x++){
+      _leafSeeds[y][x]=[
+        Math.random(),Math.random(),Math.random(),
+        Math.random(),Math.random(),Math.random(),
+        Math.random(),Math.random()
+      ];
+    }
+  }
+  // Coloca o boss longe do jogador
+  _bx=_mzSize-2; _by=1;
+  while(_mzGrid[_by]&&_mzGrid[_by][_bx]===1){ _bx--; if(_bx<1){_bx=1;break} }
+  requestAnimationFrame(()=>{
+    drawMaze();
+    // Boss começa a se mover após 2s de graça
+    setTimeout(()=>{
+      if(!_mzFinished&&!_mzDead){
+        _bossOn=true;
+        _bossInterval=setInterval(bossStep, lv.bossMs);
+      }
+    }, 2200);
+  });
 }
 
+// ── Geração do labirinto (DFS backtracking) ──
 function genMaze(sz){
-  const s=sz%2===0?sz+1:sz;
-  _mzGrid=Array.from({length:s},()=>Array(s).fill(1));
+  const s=(sz%2===0)?sz+1:sz;
+  _mzGrid=Array.from({length:s},()=>new Array(s).fill(1));
   function carve(x,y){
     _mzGrid[y][x]=0;
     shuffle([[0,-2],[2,0],[0,2],[-2,0]]).forEach(([dx,dy])=>{
-      const nx=x+dx,ny=y+dy;
+      const nx=x+dx, ny=y+dy;
       if(ny>0&&ny<s-1&&nx>0&&nx<s-1&&_mzGrid[ny][nx]===1){
-        _mzGrid[y+dy/2][x+dx/2]=0;carve(nx,ny);
+        _mzGrid[y+dy/2][x+dx/2]=0; carve(nx,ny);
       }
     });
   }
-  carve(1,1);_px=1;_py=1;
-  _ex=s-2;_ey=s-2;_mzGrid[_ey][_ex]=0;
+  carve(1,1);
+  _px=1; _py=1;
+  _ex=s-2; _ey=s-2; _mzGrid[_ey][_ex]=0;
   _mzSize=s;
 }
 
+// ── Boss — anda aleatoriamente, 30% chance de perseguir ──
+function bossStep(){
+  if(_mzFinished||_mzDead){ clearInterval(_bossInterval); return; }
+  const dirs=[[0,-1],[1,0],[0,1],[-1,0]];
+  const valid=dirs.filter(([dx,dy])=>{
+    const nx=_bx+dx, ny=_by+dy;
+    return ny>=0&&ny<_mzSize&&nx>=0&&nx<_mzSize&&_mzGrid[ny][nx]===0;
+  });
+  if(!valid.length) return;
+  let move;
+  if(Math.random()<0.3){
+    // Tenta ir na direção do jogador
+    const tdx=_px-_bx, tdy=_py-_by;
+    const pref=valid.filter(([dx,dy])=>
+      (tdx!==0&&Math.sign(dx)===Math.sign(tdx))||(tdy!==0&&Math.sign(dy)===Math.sign(tdy))
+    );
+    move = pref.length ? pref[Math.floor(Math.random()*pref.length)]
+                       : valid[Math.floor(Math.random()*valid.length)];
+  } else {
+    move=valid[Math.floor(Math.random()*valid.length)];
+  }
+  _bx+=move[0]; _by+=move[1];
+  // Colisão boss → jogador
+  if(_bx===_px&&_by===_py){ bossCatch(); return; }
+  updateDanger();
+  drawMaze();
+}
+
+function bossCatch(){
+  _mzDead=true; _bossOn=false;
+  clearInterval(_bossInterval);
+  drawMaze();
+  const wrap=$('mzwrap');
+  const ov=document.createElement('div');
+  ov.className='mz-overlay lost';
+  ov.innerHTML=`
+    <div class="ov-ico">😱</div>
+    <div class="ov-ttl">O monstro te pegou!</div>
+    <div class="ov-sub">Não desiste — tenta de novo! 💪</div>
+    <button class="ov-btn" onclick="initMaze(false)">🔄 Tentar de novo</button>
+    <button class="ov-btn" style="background:rgba(255,255,255,.1)" onclick="goHome()">🏠 Menu</button>
+  `;
+  wrap.appendChild(ov);
+  $('mazeTopbar').classList.remove('danger');
+  $('mzwrap').classList.remove('danger-border');
+}
+
+function updateDanger(){
+  const dist=Math.abs(_px-_bx)+Math.abs(_py-_by);
+  const topbar=$('mazeTopbar'), wrap=$('mzwrap');
+  if(dist<=3){
+    topbar.classList.add('danger'); wrap.classList.add('danger-border');
+    $('bossDist').textContent='⚠️'; $('bpill').style.color='#ff2222';
+  } else if(dist<=7){
+    topbar.classList.remove('danger'); wrap.classList.remove('danger-border');
+    $('bossDist').textContent=dist; $('bpill').style.color='#ffaa33';
+  } else {
+    topbar.classList.remove('danger'); wrap.classList.remove('danger-border');
+    $('bossDist').textContent=dist; $('bpill').style.color='rgba(255,255,255,.55)';
+  }
+}
+
+// ── BFS para dica ──
 function solveMaze(){
   const s=_mzSize;
-  const q=[[_px,_py,[[_px,_py]]]];
+  const q=[[_px,_py,[]]]; // path sem o ponto inicial
   const vis=new Set([`${_px},${_py}`]);
   while(q.length){
     const[x,y,path]=q.shift();
-    if(x===_ex&&y===_ey)return path;
+    if(x===_ex&&y===_ey) return [[_px,_py],...path,[x,y]];
     [[0,-1],[1,0],[0,1],[-1,0]].forEach(([dx,dy])=>{
-      const nx=x+dx,ny=y+dy;
+      const nx=x+dx, ny=y+dy;
       if(ny>=0&&ny<s&&nx>=0&&nx<s&&_mzGrid[ny][nx]===0&&!vis.has(`${nx},${ny}`)){
-        vis.add(`${nx},${ny}`);q.push([nx,ny,[...path,[nx,ny]]]);
+        vis.add(`${nx},${ny}`); q.push([nx,ny,[...path,[x,y]]]);
       }
     });
   }
-  return[];
+  return [];
 }
 
 function useHint(){
-  if(_hintUsed>=_hintMax)return;
-  // Resolve caminho atual e mostra os próximos 3~5 passos
+  if(_hintUsed>=_hintMax||_mzFinished||_mzDead) return;
   _hints=solveMaze();
   _hintActive=true;
-  _hintIdx=Math.min(4,_hints.length-1); // mostra 4 passos à frente
   $('hd'+_hintUsed).classList.add('used');
   _hintUsed++;
-  if(_hintUsed>=_hintMax){
-    $('hintBtn').style.opacity='.45';
-    $('hintBtn').style.pointerEvents='none';
-  }
+  if(_hintUsed>=_hintMax){ $('hintBtn').style.opacity='.4'; $('hintBtn').style.pointerEvents='none'; }
   drawMaze();
-  // Apaga dica após 3 segundos
-  clearTimeout(window._hintTO);
-  window._hintTO=setTimeout(()=>{_hintActive=false;drawMaze()},3500);
+  clearTimeout(window._hTO);
+  window._hTO=setTimeout(()=>{ _hintActive=false; drawMaze(); }, 4000);
 }
 
+// ── Desenha o labirinto com visual de floresta ──
 function drawMaze(){
-  const cv=$('mc'),wrap=$('mzwrap'),body=$('mazebody');
-  const lv=MAZE_LEVELS[_mzLv];
-  const s=_mzSize;
-  const dpr=window.devicePixelRatio||1;
-
+  const cv=$('mc'), wrap=$('mzwrap'), body=$('mazebody');
+  const s=_mzSize, dpr=window.devicePixelRatio||1;
   // Calcula tamanho disponível
-  const hH=$('sMaze').querySelector('.hdr').offsetHeight||52;
-  const topH=body.querySelector('.maze-topbar').offsetHeight||38;
-  const padH=body.querySelector('.maze-pad').offsetHeight||160;
-  const gapH=7*3;const extraH=14;
-  const maxSz=Math.min(
-    window.innerWidth-20,
-    window.innerHeight-hH-topH-padH-gapH-extraH
-  );
-  const cell=Math.max(18,Math.floor(maxSz/s));
+  const hH=($('sMaze').querySelector('.hdr').offsetHeight)||52;
+  const topH=(body.querySelector('.maze-topbar').offsetHeight)||34;
+  const padH=(body.querySelector('.maze-pad').offsetHeight)||135;
+  const gaps=5*3+4;
+  const maxSz=Math.min(window.innerWidth-12, window.innerHeight-hH-topH-padH-gaps);
+  const cell=Math.max(12, Math.floor(maxSz/s));
   const total=cell*s;
 
-  cv.width=total*dpr;cv.height=total*dpr;
-  cv.style.width=total+'px';cv.style.height=total+'px';
-  wrap.style.width=total+'px';wrap.style.height=total+'px';
+  cv.width=total*dpr; cv.height=total*dpr;
+  cv.style.width=total+'px'; cv.style.height=total+'px';
+  wrap.style.width=total+'px'; wrap.style.height=total+'px';
 
   const ctx=cv.getContext('2d');
   ctx.scale(dpr,dpr);
 
-  // Fundo
-  ctx.fillStyle='#080f22';
+  // ── Fundo geral ──
+  ctx.fillStyle='#071008';
   ctx.fillRect(0,0,total,total);
 
-  // Caminho da dica
+  // ── Células ──
+  for(let y=0;y<s;y++){
+    for(let x=0;x<s;x++){
+      const cx=x*cell, cy=y*cell;
+      const sd=(_leafSeeds[y]&&_leafSeeds[y][x])||new Array(8).fill(.5);
+
+      if(_mzGrid[y][x]===1){
+        /* PAREDE = arbusto / folhagem */
+
+        // Base verde-escura com gradiente
+        const h1=110+Math.round(sd[0]*35);
+        const s1=52+Math.round(sd[1]*22);
+        const l1=10+Math.round(sd[2]*9);
+        const h2=105+Math.round(sd[3]*30);
+        const l2=7 +Math.round(sd[4]*7);
+        const g=ctx.createLinearGradient(cx,cy,cx+cell,cy+cell);
+        g.addColorStop(0,`hsl(${h1},${s1}%,${l1}%)`);
+        g.addColorStop(1,`hsl(${h2},${s1-8}%,${l2}%)`);
+        ctx.fillStyle=g;
+        ctx.fillRect(cx,cy,cell,cell);
+
+        // Folhas (elipses orgânicas) — só se célula grande o suficiente
+        if(cell>=14){
+          // 4-5 folhas por célula
+          const leaveDef=[
+            [.22+sd[0]*.08, .18+sd[1]*.08, .27, .16, sd[2]*.9-.45, .72],
+            [.60+sd[1]*.08, .22+sd[0]*.08, .24, .14, sd[3]*.8-.25, .66],
+            [.14+sd[2]*.07, .58+sd[0]*.08, .22, .15,-sd[4]*.7,     .60],
+            [.58+sd[3]*.08, .62+sd[1]*.08, .26, .15, sd[5]*.75-.2, .68],
+            [.36+sd[4]*.07, .36+sd[2]*.07, .18, .11, sd[6]*.5,     .50],
+          ];
+          leaveDef.forEach(([ox,oy,rx,ry,rot,al])=>{
+            const lx=cx+ox*cell, ly=cy+oy*cell;
+            const lh=108+Math.round(sd[7]*40), ll=17+Math.round(sd[0]*18);
+            ctx.save();
+            ctx.globalAlpha=al;
+            ctx.fillStyle=`hsl(${lh},58%,${ll}%)`;
+            ctx.translate(lx,ly); ctx.rotate(rot);
+            ctx.beginPath(); ctx.ellipse(0,0,rx*cell,ry*cell,0,0,Math.PI*2); ctx.fill();
+            // Nervura
+            ctx.globalAlpha=al*.45;
+            ctx.strokeStyle=`hsl(${lh+12},50%,${ll+14}%)`;
+            ctx.lineWidth=Math.max(.5,cell*.035);
+            ctx.beginPath(); ctx.moveTo(-rx*cell*.8,0); ctx.lineTo(rx*cell*.8,0); ctx.stroke();
+            ctx.restore();
+          });
+          // Orvalho / brilho
+          if(sd[5]>.58){
+            ctx.save(); ctx.globalAlpha=.18+sd[6]*.12;
+            ctx.fillStyle='#ccffcc';
+            ctx.beginPath();
+            ctx.arc(cx+(.15+sd[7]*.7)*cell, cy+(.12+sd[0]*.25)*cell, cell*.07, 0, Math.PI*2);
+            ctx.fill(); ctx.restore();
+          }
+        } else if(cell>=9){
+          // Versão simplificada para células pequenas
+          ctx.save(); ctx.globalAlpha=.55;
+          ctx.fillStyle=`hsl(${115+Math.round(sd[0]*30)},58%,${20+Math.round(sd[1]*12)}%)`;
+          ctx.beginPath(); ctx.ellipse(cx+cell*.32,cy+cell*.28,cell*.28,cell*.18,sd[2]*.6,0,Math.PI*2); ctx.fill();
+          ctx.fillStyle=`hsl(${118+Math.round(sd[3]*28)},54%,${17+Math.round(sd[4]*10)}%)`;
+          ctx.beginPath(); ctx.ellipse(cx+cell*.66,cy+cell*.64,cell*.25,cell*.16,sd[5]*.5,0,Math.PI*2); ctx.fill();
+          ctx.restore();
+        }
+
+      } else {
+        /* CORREDOR = terra batida */
+        const dh=28+Math.round(sd[0]*14);
+        const ds=20+Math.round(sd[1]*14);
+        const dl=10+Math.round(sd[2]*6);
+        ctx.fillStyle=`hsl(${dh},${ds}%,${dl}%)`;
+        ctx.fillRect(cx,cy,cell,cell);
+        // Pedrinhas/terra textura
+        if(cell>=16&&sd[3]>.5){
+          ctx.save(); ctx.globalAlpha=.18+sd[4]*.12;
+          ctx.fillStyle=`hsl(${dh+10},${ds}%,${dl+9}%)`;
+          ctx.beginPath();
+          ctx.ellipse(cx+(.18+sd[5]*.64)*cell, cy+(.18+sd[6]*.64)*cell, cell*.07, cell*.05, sd[7]*Math.PI, 0, Math.PI*2);
+          ctx.fill(); ctx.restore();
+        }
+        // Mofa/musgo no corredor (toque de floresta)
+        if(cell>=20&&sd[4]>.7){
+          ctx.save(); ctx.globalAlpha=.22;
+          ctx.fillStyle=`hsl(${115+Math.round(sd[5]*25)},55%,22%)`;
+          ctx.beginPath();
+          ctx.ellipse(cx+(.3+sd[6]*.4)*cell, cy+(.3+sd[7]*.4)*cell, cell*.12, cell*.08, sd[0]*Math.PI, 0, Math.PI*2);
+          ctx.fill(); ctx.restore();
+        }
+      }
+    }
+  }
+
+  // ── Dica — setas douradas nos corredores ──
   if(_hintActive&&_hints.length>1){
-    const steps=_hints.slice(1,Math.min(_hintIdx+1,_hints.length));
+    const steps=_hints.slice(1, Math.min(7,_hints.length));
     steps.forEach(([hx,hy],i)=>{
-      const alpha=0.8*(1-i/steps.length);
-      // Pulso animado
+      const alpha=0.9*(1-i/steps.length);
       ctx.save();
       ctx.globalAlpha=alpha;
-      const grd=ctx.createRadialGradient(hx*cell+cell/2,hy*cell+cell/2,0,hx*cell+cell/2,hy*cell+cell/2,cell*.45);
-      grd.addColorStop(0,'#ffd700');grd.addColorStop(1,'rgba(255,215,0,0)');
-      ctx.fillStyle=grd;
-      ctx.beginPath();ctx.arc(hx*cell+cell/2,hy*cell+cell/2,cell*.45,0,Math.PI*2);ctx.fill();
-      // Seta de direção
+      const gr=ctx.createRadialGradient(hx*cell+cell/2,hy*cell+cell/2,0,hx*cell+cell/2,hy*cell+cell/2,cell*.42);
+      gr.addColorStop(0,'rgba(255,220,0,.55)'); gr.addColorStop(1,'transparent');
+      ctx.fillStyle=gr;
+      ctx.beginPath(); ctx.arc(hx*cell+cell/2,hy*cell+cell/2,cell*.42,0,Math.PI*2); ctx.fill();
       if(i<steps.length-1){
-        const[nx,ny]=steps[i+1]||[hx,hy];
-        const dx=(nx-hx),dy=(ny-hy);
-        if(dx!==0||dy!==0){
-          ctx.globalAlpha=alpha*.9;
-          ctx.fillStyle='#fff';
-          ctx.font=`bold ${Math.round(cell*.55)}px serif`;
-          ctx.textAlign='center';ctx.textBaseline='middle';
-          const arrow=dx>0?'→':dx<0?'←':dy>0?'↓':'↑';
-          ctx.fillText(arrow,hx*cell+cell/2,hy*cell+cell/2);
-        }
+        const[nx,ny]=steps[i+1];
+        const ddx=nx-hx, ddy=ny-hy;
+        const arrow=ddx>0?'→':ddx<0?'←':ddy>0?'↓':'↑';
+        ctx.globalAlpha=alpha*.9;
+        ctx.fillStyle='#ffe44d';
+        ctx.font=`bold ${Math.round(cell*.58)}px sans-serif`;
+        ctx.textAlign='center'; ctx.textBaseline='middle';
+        ctx.fillText(arrow, hx*cell+cell/2, hy*cell+cell/2);
       }
       ctx.restore();
     });
   }
 
-  // Células
-  for(let y=0;y<s;y++){
-    for(let x=0;x<s;x++){
-      if(_mzGrid[y][x]===1){
-        // Parede com textura
-        const grd=ctx.createLinearGradient(x*cell,y*cell,(x+1)*cell,(y+1)*cell);
-        grd.addColorStop(0,'#1a2a5e');grd.addColorStop(1,'#0f1f44');
-        ctx.fillStyle=grd;
-        ctx.beginPath();
-        if(ctx.roundRect){ctx.roundRect(x*cell+.5,y*cell+.5,cell-1,cell-1,2)}
-        else{ctx.rect(x*cell+.5,y*cell+.5,cell-1,cell-1)}
-        ctx.fill();
-        // Contorno suave
-        ctx.strokeStyle='rgba(100,120,255,0.1)';ctx.lineWidth=.5;ctx.stroke();
-      }else{
-        ctx.fillStyle='#0b1530';
-        ctx.fillRect(x*cell,y*cell,cell,cell);
-      }
-    }
-  }
-
-  // Grade de pontinhos no chão
-  ctx.fillStyle='rgba(255,255,255,.04)';
-  for(let y=0;y<s;y++){
-    for(let x=0;x<s;x++){
-      if(_mzGrid[y][x]===0){
-        ctx.beginPath();
-        ctx.arc(x*cell+cell/2,y*cell+cell/2,1,0,Math.PI*2);
-        ctx.fill();
-      }
-    }
-  }
-
-  // Saída com brilho
+  // ── Saída — estrela pulsante ──
+  const tp=Date.now();
+  const pulse=.85+.15*Math.sin(tp/380);
   ctx.save();
-  const grdExit=ctx.createRadialGradient(_ex*cell+cell/2,_ey*cell+cell/2,0,_ex*cell+cell/2,_ey*cell+cell/2,cell*.6);
-  grdExit.addColorStop(0,'rgba(255,215,0,.4)');grdExit.addColorStop(1,'transparent');
-  ctx.fillStyle=grdExit;
-  ctx.beginPath();ctx.arc(_ex*cell+cell/2,_ey*cell+cell/2,cell*.6,0,Math.PI*2);ctx.fill();
-  ctx.font=`${Math.round(cell*.72)}px serif`;ctx.textAlign='center';ctx.textBaseline='middle';
-  ctx.fillText('🌟',_ex*cell+cell/2,_ey*cell+cell/2);
+  const ge=ctx.createRadialGradient(_ex*cell+cell/2,_ey*cell+cell/2,0,_ex*cell+cell/2,_ey*cell+cell/2,cell*.65*pulse);
+  ge.addColorStop(0,'rgba(255,240,0,.55)'); ge.addColorStop(.65,'rgba(255,200,0,.12)'); ge.addColorStop(1,'transparent');
+  ctx.fillStyle=ge;
+  ctx.beginPath(); ctx.arc(_ex*cell+cell/2,_ey*cell+cell/2,cell*.65,0,Math.PI*2); ctx.fill();
+  ctx.font=`${Math.round(cell*.75)}px serif`;
+  ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.fillText('🌟',_ex*cell+cell/2, _ey*cell+cell/2);
   ctx.restore();
 
-  // Jogador
-  ctx.save();
-  ctx.font=`${Math.round(cell*.72)}px serif`;ctx.textAlign='center';ctx.textBaseline='middle';
-  ctx.fillText('🐱',_px*cell+cell/2,_py*cell+cell/2);
-  ctx.restore();
+  // ── Boss 👾 ──
+  if(_bossOn||_mzDead){
+    ctx.save();
+    const dist=Math.abs(_px-_bx)+Math.abs(_py-_by);
+    if(dist<=4){
+      const gb=ctx.createRadialGradient(_bx*cell+cell/2,_by*cell+cell/2,0,_bx*cell+cell/2,_by*cell+cell/2,cell*.75);
+      gb.addColorStop(0,'rgba(255,60,0,.45)'); gb.addColorStop(1,'transparent');
+      ctx.fillStyle=gb;
+      ctx.beginPath(); ctx.arc(_bx*cell+cell/2,_by*cell+cell/2,cell*.75,0,Math.PI*2); ctx.fill();
+    }
+    ctx.font=`${Math.round(cell*.75)}px serif`;
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText('👾',_bx*cell+cell/2, _by*cell+cell/2);
+    ctx.restore();
+  }
 
-  // Borda decorativa
-  ctx.strokeStyle='rgba(0,212,255,.25)';ctx.lineWidth=2;
+  // ── Jogador 🐱 ──
+  if(!_mzDead){
+    ctx.save();
+    const gp=ctx.createRadialGradient(_px*cell+cell/2,_py*cell+cell/2,0,_px*cell+cell/2,_py*cell+cell/2,cell*.48);
+    gp.addColorStop(0,'rgba(120,255,120,.28)'); gp.addColorStop(1,'transparent');
+    ctx.fillStyle=gp; ctx.beginPath(); ctx.arc(_px*cell+cell/2,_py*cell+cell/2,cell*.48,0,Math.PI*2); ctx.fill();
+    ctx.font=`${Math.round(cell*.75)}px serif`;
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText('🐱',_px*cell+cell/2, _py*cell+cell/2);
+    ctx.restore();
+  }
+
+  // Borda de floresta
+  ctx.strokeStyle='rgba(0,140,0,.4)'; ctx.lineWidth=2;
   ctx.strokeRect(1,1,total-2,total-2);
 }
 
+// ── Movimento do jogador ──
 function mv(dx,dy){
-  if(_mzFinished)return;
-  const nx=_px+dx,ny=_py+dy;
-  if(ny<0||ny>=_mzSize||nx<0||nx>=_mzSize)return;
-  if(_mzGrid[ny][nx]===1){
-    // Bate na parede — feedback visual
-    shakeWrap();return;
-  }
-  _px=nx;_py=ny;_mzSteps++;
+  if(_mzFinished||_mzDead) return;
+  const nx=_px+dx, ny=_py+dy;
+  if(ny<0||ny>=_mzSize||nx<0||nx>=_mzSize) return;
+  if(_mzGrid[ny][nx]===1){ shakeWrap(); return; }
+  _px=nx; _py=ny; _mzSteps++;
   $('mzSteps').textContent=_mzSteps;
   _hintActive=false;
+  // Colisão jogador → boss
+  if(_bossOn&&_bx===_px&&_by===_py){ bossCatch(); return; }
+  updateDanger();
   drawMaze();
+  // Chegou na saída!
   if(_px===_ex&&_py===_ey){
-    _mzFinished=true;
-    rain(45);
+    _mzFinished=true; _bossOn=false;
+    clearInterval(_bossInterval);
+    $('mazeTopbar').classList.remove('danger');
+    $('mzwrap').classList.remove('danger-border');
+    rain(50);
     setTimeout(()=>{
       const lv=MAZE_LEVELS[_mzLv];
-      const sn=_mzSteps<=lv.max*.55?3:_mzSteps<=lv.max?2:1;
+      const sn=_mzSteps<=lv.max*.5?3:_mzSteps<=lv.max?2:1;
       saveStars('mw_z',sn);
       _mzLv=(_mzLv+1)%MAZE_LEVELS.length;
-      const coins=sn===3?30:sn===2?20:10;
+      const coins=sn===3?35:sn===2?22:10;
       showResult('z',sn,coins,
         sn===3?'🏆':sn===2?'🥈':'🥉',
-        sn===3?'Que sortudo(a)! 🌟':sn===2?'Muito bem! 🎉':'Saída encontrada! 🐱',
-        `Saída em ${_mzSteps} passos!${sn===3?' Perfeito!':''}`);
-    },700);
+        sn===3?'Escapou perfeitamente! 🌟':sn===2?'Fugiu do monstro! 🎉':'Conseguiu escapar! 🐱',
+        `Fugiu em ${_mzSteps} passos!${sn===3?' Incrível!':''}`
+      );
+    }, 700);
   }
 }
 
 function shakeWrap(){
-  const w=$('mzwrap');
-  w.style.animation='none';void w.offsetWidth;
-  w.style.animation='shakeWall .3s ease';
-  setTimeout(()=>{w.style.animation='mazeGlow 4s ease-in-out infinite'},350);
+  const w=$('mzwrap'); let n=0;
+  w.style.transition='transform .04s';
+  const si=setInterval(()=>{
+    w.style.transform=n%2?'translateX(5px)':'translateX(-5px)';
+    if(++n>5){ clearInterval(si); w.style.transform=''; w.style.transition=''; }
+  },45);
 }
 
-// Adiciona animação de shake ao CSS dinamicamente
-const shakeStyle=document.createElement('style');
-shakeStyle.textContent='@keyframes shakeWall{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}';
-document.head.appendChild(shakeStyle);
 
-// Teclado físico para labirinto
 document.addEventListener('keydown',e=>{
   if(!document.querySelector('#sMaze.on'))return;
   const m={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0],w:[0,-1],s:[0,1],a:[-1,0],d:[1,0]};
